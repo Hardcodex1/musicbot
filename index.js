@@ -1,5 +1,4 @@
 const {Client, Intents} = require("discord.js")
-const mongo = require("./mongo")
 const music = require("./music2")
 const slashcommands = require("./slashcommands")
 const client = new Client({
