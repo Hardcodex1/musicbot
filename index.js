@@ -17,4 +17,4 @@ client.on("ready", async message =>
     slashcommands(client)
 })
 
-client.login("ODc1NzgxMDgwODg2Njk3OTg0.YRagsA.csVIG4ZX01K3iDAFITJAcBNQ6eU")
+client.login(process.env.BOT_TOKEN)
