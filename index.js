@@ -12,7 +12,6 @@ const client = new Client({
 client.on("ready", async message =>
 {
     console.log("ready")
-    await mongo()
     music(client)
     slashcommands(client)
 })
