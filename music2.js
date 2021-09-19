@@ -30,7 +30,19 @@ module.exports = client =>
                 .setLabel("🛑")
 			);
 
-    const player = new Player(client);
+    const player = new Player(client, {
+        leaveOnEmpty: false,
+        leaveOnEnd: false,
+        leaveOnStop: true,
+        ytdlOptions: {
+            highWaterMark: 1024 * 1024 * 30,
+            requestOptions: {
+                headers: {
+                    cookie: "CONSENT=YES+IN.en-GB+202003; VISITOR_INFO1_LIVE=aPSpIoREn04; LOGIN_INFO=AFmmF2swRQIhAO22-qcf5n5so82tQ2LhIVFH1ODciOHTMAfafQd3OUVhAiAmEexSwJyU_NZCYkOVeWQ2IUy96aK5NJA0MgczVbsLAg:QUQ3MjNmd1lkbnB0MGpmT0dhRkFEM1N2LWR6NW5raW0wM2MzSTloNmRXcjg3UVNncm9RLUNjNmR5bGJFV0RvUTJ0Z2hMTlhmX09XZFNNMk9hb3g4bWRQSVhHV1lGakdBWUZ5M2RKV3BjNllHbFBzRWl4VFNzN2cxbElLZkR2X0dUR0xJQkxhWHRLRzZBeDNaZkFiSUVLZHhKLTBZcW5ieHJxU0RLQVpZR0xaYmUyMW9ULVowb3p2UzNoSlVHRWVRT0JGNDFncENCaEQ2; PREF=tz=Asia.Calcutta&f6=40000000&f5=30000; APISID=e8EXWevsDQX3pqWF/AMeIxNthbXSRVHada; HSID=AqcLh6XAycGsY_Fbm; SAPISID=DbduP4-bxzJ8q_kh/Aw2nOsx0r-qvJAs6s; SSID=AZW1aawK8wOrQf5Tn; __Secure-1PAPISID=DbduP4-bxzJ8q_kh/Aw2nOsx0r-qvJAs6s; __Secure-3PAPISID=DbduP4-bxzJ8q_kh/Aw2nOsx0r-qvJAs6s; SID=AQhLEGt4hOeHSnS86BfpYU9jtoudKBOe62ZMHFG9UpRSBsMGZlDqJxgAI4nva9CjVSkuaQ.; __Secure-3PSID=AQhLEGt4hOeHSnS86BfpYU9jtoudKBOe62ZMHFG9UpRSBsMGTH-tKs5iCdXzLQSB8sURvA.; __Secure-1PSID=AQhLEGt4hOeHSnS86BfpYU9jtoudKBOe62ZMHFG9UpRSBsMG1nMZK1X5C96T90wr3_Pu0Q.; YSC=4Xqrlg8JJ5Y; SIDCC=AJi4QfEwmu0gPc8tbiyM37DdhZioVii7PghtvaigqD7uMBsZtrjjj2a5_vci6nMiYvi7hhu6XQ; __Secure-3PSIDCC=AJi4QfGiDv1C-XVaaqUvC_DJS009jaDDv63kU1ivVWDGK0xzHYqrp8aH6WCkhMCpJzCEUVR6evo",
+                }
+            }
+        }
+    });
     player.use("reverbnation", Reverbnation);
     const resultTracks = new Map()
 
@@ -88,6 +100,7 @@ module.exports = client =>
         if (!track) return await interaction.followUp({embeds: [embedSender( `❌ | Track **${query}** not found!`)] });
 
         queue.play(track);
+        queue.setBitrate(320)
 
         return await interaction.followUp({embeds: [embedSender( `⏱️ | Loading track **${track.title}**!`)] , ephemeral: true});
         }
@@ -184,7 +197,7 @@ module.exports = client =>
             .setColor("#00FFFF")
             .setThumbnail(queue.current.thumbnail)
 
-            interaction.reply({embeds: [embed], components: Musicrow})
+            interaction.reply({embeds: [embed], components: [Musicrow]})
         }
         else if (interaction.commandName == "back")
         {
@@ -348,6 +361,45 @@ module.exports = client =>
 
             return void interaction.followUp({ content: `🎵 | ${filter} ${queue.getFiltersEnabled().includes(filter) ? "Enabled" : "Disabled"}!` });
         }
+        else if (interaction.commandName == "remove")
+        {
+            let index = interaction.options.get("postion").value
+            const queue = player.getQueue(interaction.guild)
+            if (!queue || !queue.playing) return void interaction.followUp({content: "No Music In Queue"})
+
+            queue.remove(index-1)
+            interaction.reply({embeds: [embedSender(`Removed Song From: ${index}`)]})
+        }
+        else if (interaction.commandName == "jump")
+        {
+            let index = interaction.options.get("postion").value
+            const queue = player.getQueue(interaction.guild)
+            if (!queue || !queue.playing) return void interaction.followUp({content: "No Music In Queue"})
+
+            queue.jump(index-1)
+            interaction.reply({embeds: [embedSender(`Jumped To ${index}`)]})
+        }
+        else if (interaction.commandName == "pause")
+        {
+            const queue = player.getQueue(interaction.guild)
+            if (!queue || !queue.playing) return void interaction.followUp({content: "No Music In Queue"})
+
+            queue.setPaused(true)
+            interaction.reply({embeds: [embedSender("Music Paused!")]})
+        }
+        else if (interaction.commandName == "resume")
+        {
+            const queue = player.getQueue(interaction.guild)
+            if (!queue || !queue.playing) return void interaction.followUp({content: "No Music In Queue"})
+
+            queue.setPaused(false)
+            interaction.reply({embeds: [embedSender("Music Resumed!")]})
+        }
+        else if (interaction.commandName == "ping")
+        {
+            interaction.deferReply()
+            interaction.followUp(`🏓Latency is ${Date.now() - interaction.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`);
+        }
     })
 
     player.on("trackStart", (queue, track) => 
@@ -454,6 +506,7 @@ client.on(`interactionCreate`, async interaction =>
             resultTracks.delete(interaction.channel.id)
 
             queue.play(track);
+            queue.setBitrate(320)
             }
 
 })

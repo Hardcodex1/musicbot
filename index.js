@@ -9,11 +9,23 @@ const client = new Client({
 	],
 })
 
+process
+  .on('unhandledRejection', (reason, p) => {
+    console.error(reason, 'Unhandled Rejection at Promise', p);
+  })
+  .on('uncaughtException', err => {
+    console.error(err, 'Uncaught Exception thrown');
+  });
+
 client.on("ready", async message =>
 {
-    console.log("ready")
+    console.log("Music Bots Ready")
+	client.user.setActivity(`Streaming Youtube To Servers`, {
+		type: "STREAMING",
+		url: "https://www.twitch.tv/hardcodex1"
+	  });
     music(client)
     slashcommands(client)
 })
 
-client.login(process.env.BOT_TOKEN)
+client.login("ODc1NzgxMDgwODg2Njk3OTg0.YRagsA.SU57a_0n7un1JR18nIsi3ETqVU4")
