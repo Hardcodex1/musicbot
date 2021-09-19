@@ -34,6 +34,7 @@ module.exports = client =>
         leaveOnEmpty: false,
         leaveOnEnd: false,
         leaveOnStop: true,
+        autoSelfDeaf: true,
         ytdlOptions: {
             highWaterMark: 1024 * 1024 * 30,
             requestOptions: {
@@ -70,6 +71,7 @@ module.exports = client =>
                     channel: interaction.channel,
                     requester: interaction.user,
                     vc: interaction.member.voice.channel,
+            },
                     leaveOnEmpty: false,
                     leaveOnEnd: false,
                     leaveOnStop: true,
@@ -82,8 +84,9 @@ module.exports = client =>
                             }
                         }
                     }
-                }
             })
+
+            console.log(queue)
 
             try {
                 if (!queue.connection) await queue.connect(interaction.member.voice.channel);
@@ -474,6 +477,7 @@ client.on(`interactionCreate`, async interaction =>
                     metadata: {
                         channel: interaction.channel,
                         requestedBy: interaction.user,
+                    },
                         leaveOnEmpty: false,
                         leaveOnEnd: false,
                         leaveOnStop: true,
@@ -486,7 +490,6 @@ client.on(`interactionCreate`, async interaction =>
                                 }
                             }
                         }
-                    }
                 });        
             }
 
