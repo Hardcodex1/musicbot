@@ -425,10 +425,10 @@ module.exports = client =>
 })
 
 player.on("error", (queue, error) => {
-    queue.metadata.channel.send({embeds: [embedSender(`[${queue.guild.name}] Error emitted from the queue: ${error.message}`)]});
+    console.log({embeds: [embedSender(`[${queue.guild.name}] Error emitted from the queue: ${error.message}`)]});
 });
 player.on("connectionError", (queue, error) => {
-    queue.metadata.channel.send({embeds: [embedSender(`[${queue.guild.name}] Error emitted from the queue: ${error.message}`)]});
+    console.log({embeds: [embedSender(`[${queue.guild.name}] Error emitted from the queue: ${error.message}`)]});
 });
 
 player.on("trackAdd", async (queue, track) => {
