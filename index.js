@@ -37,10 +37,10 @@ process
 client.on("ready", async message =>
 {
     console.log("Music Bots Ready")
-	client.user.setActivity(`Enjoying On Hiyasu 力 Server`, {
-		type: "STREAMING",
-		url: "https://www.twitch.tv/hardcodex1"
-	  });
+	bot.user.setActivity(`Running ${reply} Servers | !helpC`, {
+     type: "STREAMING",
+     url: "https://www.twitch.tv/hardcodex1"
+   });
     await mongo()
     music(client)
     slashcommands(client)
