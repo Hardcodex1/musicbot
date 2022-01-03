@@ -1,9 +1,11 @@
 const command = require("./command")
-const { QueueRepeatMode } = require("discord-player");
+const { Player, QueryType, QueueRepeatMode } = require("discord-player");
 
 module.exports = bot =>
 {
   command(bot, "deploy", async message => {
+
+       if (message.author.id != "849905403021361162") return
 
         await message.guild.commands.set([
           {
@@ -26,6 +28,18 @@ module.exports = bot =>
                         name: "query",
                         type: "STRING",
                         description: "The Song Name You Want To Search",
+                        required: true
+                    }
+                ]
+            },
+            {
+                name: "soundcloud",
+                description: "Plays a song from soundcloud",
+                options: [
+                    {
+                        name: "query",
+                        type: "STRING",
+                        description: "The song you want to play",
                         required: true
                     }
                 ]
@@ -109,6 +123,28 @@ module.exports = bot =>
                 ]
             },
             {
+                name: "247",
+                description: "Enable/Disable 24/7 Mode",
+                options: [
+                    {
+                        name: "option",
+                        type: "STRING",
+                        description: "24/7 on or off",
+                        required: true, 
+                        choices: [
+                          {
+                                name: "Off",
+                                value: "off"
+                            },
+                            {
+                                name: "On",
+                                value: "On"
+                            },
+                        ]
+                    }
+                ]
+            },
+            {
                 name: "skip",
                 description: "Skip to the current song"
             },
@@ -147,6 +183,89 @@ module.exports = bot =>
             {
                 name: "ping",
                 description: "Shows bot latency"
+            },
+            {
+                name: "bassboost",
+                description: "Add BassBoost Filter"
+            },
+            {
+                name: "help",
+                description: "Help Menu",
+                options: [
+                  {
+                    name: "option",
+                    description: "menu name",
+                    type: "STRING",
+                    choices: [
+                      {
+                        name: "mod",
+                        value: "mod",
+                      },
+                      {
+                        name: "fun",
+                        value: "fun",
+                      },
+                      {
+                        name: "main",
+                        value: "main",
+                      },
+                      {
+                        name: "music",
+                        value: "music",
+                      },
+                      {
+                        name: "image",
+                        value: "image",
+                      },
+                      {
+                        name: "giveaway",
+                        value: "giveaway",
+                      },
+                      {
+                        name: "util",
+                        value: "util",
+                      },
+                    ]
+                  }
+                ]
+            },
+            {
+                name: "user info",
+                type: 3
+            },
+            {
+                name: "trigger",
+                type: 3
+            },
+            {
+                name: "avatar",
+                type: 3
+            },
+            {
+                name: "hug",
+                type: 3
+            },
+            {
+                name: "purge user 20",
+                type: 3
+            },
+            {
+                name: "fake",
+                description: "Fake Messages",
+                options: [
+                  {
+                  name: "user",
+                  description: "User Who You Want To Fake",
+                  type: "USER",
+                  required: true
+                  },
+                  {
+                  name: "message",
+                  description: "Message That You Will Fake",
+                  type: "STRING",
+                  required: true
+                  }
+                ]
             },
         ])
 

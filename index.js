@@ -1,28 +1,23 @@
 const {Client, Intents} = require("discord.js")
-const music = require("./music2")
-const music1 = require("./music1")
-const music2 = require("./music")
+const music = require("./music")
 const slashcommands = require("./slashcommands")
-const slashcommands2 = require("./sc2")
-const slashcommands1 = require("./sc1")
+const mongo = require("./mongo")
+const afk = require("./afk")
+const chatBot = require("./chatbot")
+const funper = require("./funPercentage")
+const help = require("./help")
+const levels = require("./levels")
+const mod = require("./moderation")
+const fake = require("./fake")
+const image = require("./image")
+const keepAlive = require("./server")
+const tickets = require("./tickets")
+const guesswho = require("./guesswho")
+const prefix = require("./prefix")
+const reddit = require("./reddit")
+const bump = require("./bumpreminder")
 
 const client = new Client({
-	intents: [
-		'GUILDS',
-		'GUILD_MESSAGES',
-		'GUILD_VOICE_STATES',
-	],
-})
-
-const client2 = new Client({
-	intents: [
-		'GUILDS',
-		'GUILD_MESSAGES',
-		'GUILD_VOICE_STATES',
-	],
-})
-
-const client1 = new Client({
 	intents: [
 		'GUILDS',
 		'GUILD_MESSAGES',
@@ -42,36 +37,25 @@ process
 client.on("ready", async message =>
 {
     console.log("Music Bots Ready")
-	client.user.setActivity(`Streaming Youtube To Servers`, {
+	client.user.setActivity(`Enjoying On Hiyasu 力 Server`, {
 		type: "STREAMING",
 		url: "https://www.twitch.tv/hardcodex1"
 	  });
+    await mongo()
     music(client)
     slashcommands(client)
+    afk(client)
+    chatBot(client)
+    funper(client)
+    help(client)
+    levels(client)
+    mod(client)
+    fake(client)
+    image(client)
+    guesswho(client)
+    tickets(client)
+    bump(client)
 })
 
-client2.on("ready", async message =>
-{
-    console.log("Music Bots Ready")
-	client2.user.setActivity(`Streaming Youtube To Servers`, {
-		type: "STREAMING",
-		url: "https://www.twitch.tv/hardcodex1"
-	  });
-    music2(client2)
-    slashcommands2(client2)
-})
-
-client1.on("ready", async message =>
-{
-    console.log("Music Bots Ready")
-	client2.user.setActivity(`Streaming Youtube To Servers`, {
-		type: "STREAMING",
-		url: "https://www.twitch.tv/hardcodex1"
-	  });
-    music1(client1)
-    slashcommands1(client1)
-})
-
+keepAlive()
 client.login(process.env.BOT_TOKEN)
-client2.login(process.env.BOT_TOKEN1)
-client1.login(process.env.BOT_TOKEN2)

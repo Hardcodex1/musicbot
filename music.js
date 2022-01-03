@@ -59,11 +59,11 @@ module.exports = client =>
 
     client.on("interactionCreate", async interaction =>
     {
-        if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
-        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
-
         if (interaction.commandName == "play")
         {
+          if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
             var query = interaction.options.get("query").value
 
             const queue = player.createQueue(interaction.guild, {
@@ -109,6 +109,9 @@ module.exports = client =>
         }
         else if(interaction.commandName == "queue")
         {
+          if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
             const queue = player.getQueue(interaction.guild)
             if (!queue || !queue.playing) return interaction.reply({embedSender: [embedSender("No Song Playing!")]})
 
@@ -136,6 +139,9 @@ module.exports = client =>
         }
         else if (interaction.commandName == "skip")
         {
+          if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
             const queue = player.getQueue(interaction.guild)
             if (!queue || !queue.playing) return interaction.reply({embeds: [embedSender("No Song Playing!")]})
 
@@ -144,6 +150,9 @@ module.exports = client =>
         }
         else if (interaction.commandName == "volume")
         {
+          if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
             const queue = player.getQueue(interaction.guild)
             if (!queue || !queue.playing) return interaction.reply({embeds: [embedSender("No Song Playing!")]})
 
@@ -154,6 +163,9 @@ module.exports = client =>
         }
         else if (interaction.commandName == "stop")
         {
+          if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
             const queue = player.getQueue(interaction.guild)
             if (!queue || !queue.playing) return interaction.reply({embeds: [embedSender("No Song Playing!")]})
 
@@ -162,6 +174,9 @@ module.exports = client =>
         }
         else if (interaction.commandName == "shuffle")
         {
+          if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
             const queue = player.getQueue(interaction.guild)
             if (!queue || !queue.playing) return interaction.reply({embeds: [embedSender("No Song Playing!")]})
 
@@ -170,6 +185,9 @@ module.exports = client =>
         }
         else if (interaction.commandName == "seek")
         {
+          if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
             const queue = player.getQueue(interaction.guild)
             if (!queue || !queue.playing) return interaction.reply({embeds: [embedSender("No Song Playing!")]})
 
@@ -183,6 +201,9 @@ module.exports = client =>
         }
         else if (interaction.commandName == "np")
         {
+          if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
             const queue = player.getQueue(interaction.guild)
             if (!queue || !queue.playing) return interaction.reply("No Song Playing")
 
@@ -204,6 +225,9 @@ module.exports = client =>
         }
         else if (interaction.commandName == "back")
         {
+          if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
             const queue = player.getQueue(interaction.guild)
             if (!queue || !queue.playing) return interaction.reply({embeds: [embedSender("No Song Playing!")]})
 
@@ -212,6 +236,9 @@ module.exports = client =>
         }
         else if (interaction.commandName == "clear")
         {
+          if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
             const queue = player.getQueue(interaction.guild)
             if (!queue || !queue.playing) return interaction.reply({embeds: [embedSender("No Song Playing!")]})
 
@@ -220,6 +247,9 @@ module.exports = client =>
         }
         else if(interaction.commandName == "lyrics")
         {
+          if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
             interaction.deferReply()
 
             const queue = player.getQueue(interaction.guild)
@@ -244,6 +274,9 @@ module.exports = client =>
         }
         else if (interaction.commandName == "search")
         {
+          if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
             var query = interaction.options.get("query").value
 
             const result = await player.search(query, {
@@ -336,6 +369,9 @@ module.exports = client =>
         }
         else if (interaction.commandName == "loop")
         {
+          if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
             await interaction.deferReply();
             const queue = player.getQueue(interaction.guild);
             if (!queue || !queue.playing) return void interaction.followUp({ content: "❌ | No music is being played!" });
@@ -346,6 +382,9 @@ module.exports = client =>
         }
         else if (interaction.commandName == "filter")
         {
+          if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
             await interaction.reply("Not Available Now")
             return
             const queue = player.getQueue(interaction.guild)
@@ -366,6 +405,9 @@ module.exports = client =>
         }
         else if (interaction.commandName == "remove")
         {
+          if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
             let index = interaction.options.get("postion").value
             const queue = player.getQueue(interaction.guild)
             if (!queue || !queue.playing) return void interaction.followUp({content: "No Music In Queue"})
@@ -375,6 +417,9 @@ module.exports = client =>
         }
         else if (interaction.commandName == "jump")
         {
+          if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
             let index = interaction.options.get("postion").value
             const queue = player.getQueue(interaction.guild)
             if (!queue || !queue.playing) return void interaction.followUp({content: "No Music In Queue"})
@@ -384,6 +429,9 @@ module.exports = client =>
         }
         else if (interaction.commandName == "pause")
         {
+          if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
             const queue = player.getQueue(interaction.guild)
             if (!queue || !queue.playing) return void interaction.followUp({content: "No Music In Queue"})
 
@@ -392,6 +440,9 @@ module.exports = client =>
         }
         else if (interaction.commandName == "resume")
         {
+          if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
             const queue = player.getQueue(interaction.guild)
             if (!queue || !queue.playing) return void interaction.followUp({content: "No Music In Queue"})
 
@@ -400,6 +451,9 @@ module.exports = client =>
         }
         else if (interaction.commandName == "ping")
         {
+          if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
             interaction.deferReply()
             interaction.followUp(`🏓Latency is ${Date.now() - interaction.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`);
         }
@@ -463,6 +517,9 @@ client.on(`interactionCreate`, async interaction =>
 
     if (interaction.customId == "musicSelectMenu")
     {
+      if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
         songNo = interaction.values[0]
         await interaction.deferReply()
 
@@ -516,12 +573,12 @@ client.on(`interactionCreate`, async interaction =>
 
 client.on("interactionCreate", async interaction =>
 {
-    if(!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
-    if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
-
 
     if (interaction.customId == "volume+")
     {
+      if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
         let queue = player.getQueue(interaction.guild)
         if (!queue) return interaction.message.delete()
         queue.setVolume(queue.volume + 20)
@@ -529,6 +586,9 @@ client.on("interactionCreate", async interaction =>
     }
     else if (interaction.customId == "loopQueue")
     {
+      if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
         let queue = player.getQueue(interaction.guild)
         if (!queue) return interaction.message.delete()
         queue.setRepeatMode(QueueRepeatMode.QUEUE)
@@ -536,6 +596,9 @@ client.on("interactionCreate", async interaction =>
     }
     else if (interaction.customId == "loopSong")
     {
+      if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
         let queue = player.getQueue(interaction.guild)
         if (!queue) return interaction.message.delete()
         queue.setRepeatMode(QueueRepeatMode.TRACK)
@@ -543,6 +606,9 @@ client.on("interactionCreate", async interaction =>
     }
     else if (interaction.customId == "skip")
     {
+      if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
         let queue = player.getQueue(interaction.guild)
         if (!queue) return interaction.message.delete()
         queue.skip()
@@ -550,6 +616,9 @@ client.on("interactionCreate", async interaction =>
     }
     else if (interaction.customId == "stop")
     {
+      if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+
         let queue = player.getQueue(interaction.guild)
         if (!queue) return interaction.message.delete()
         queue.stop()
