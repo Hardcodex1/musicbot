@@ -37,7 +37,7 @@ process
 client.on("ready", async message =>
 {
     console.log("Music Bots Ready")
-	client.user.setActivity(`Running ${reply} Servers | !helpC`, {
+	client.user.setActivity(`Running your Servers | !helpC`, {
      type: "STREAMING",
      url: "https://www.twitch.tv/hardcodex1"
    });
