@@ -41,7 +41,6 @@ client.on("ready", async message =>
      type: "STREAMING",
      url: "https://www.twitch.tv/hardcodex1"
    });
-    await mongo()
     music(client)
     slashcommands(client)
     afk(client)
