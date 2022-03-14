@@ -10,7 +10,6 @@ const levels = require("./levels")
 const mod = require("./moderation")
 const fake = require("./fake")
 const image = require("./image")
-const keepAlive = require("./server")
 const tickets = require("./tickets")
 const guesswho = require("./guesswho")
 const prefix = require("./prefix")
@@ -56,5 +55,4 @@ client.on("ready", async message =>
     bump(client)
 })
 
-keepAlive()
 client.login(process.env.BOT_TOKEN)
